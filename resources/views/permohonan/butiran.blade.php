@@ -64,7 +64,8 @@
                                 </span>
                                 <input data-datepicker="" class="form-control" disabled id="tarikh_surat"
                                     name="tarikh_surat" type="text" placeholder="dd/mm/yyyy"
-                                    value="{{ \Carbon\Carbon::parse($permohonan->tarikh_surat)->format('d-m-Y') }}" required>
+                                    value="{{ \Carbon\Carbon::parse($permohonan->tarikh_surat)->format('d-m-Y') }}"
+                                    required>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -80,7 +81,8 @@
                                 </span>
                                 <input data-datepicker="" class="form-control" id="tarikh_terima_surat"
                                     name="tarikh_terima_surat" type="text" placeholder="dd/mm/yyyy" disabled
-                                    value="{{ \Carbon\Carbon::parse($permohonan->tarikh_terima_surat)->format('d-m-Y') }}" required>
+                                    value="{{ \Carbon\Carbon::parse($permohonan->tarikh_terima_surat)->format('d-m-Y') }}"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -157,8 +159,9 @@
                                     <td>
                                         <div class="mb-2">
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-outline-tertiary btn-sm"><i
-                                                        class="far fa-info-circle"></i>Butiran</button>
+                                                <button type="button" class="btn btn-outline-tertiary btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#detailjawatan">Butiran</button>
                                                 <button type="button"
                                                     class="btn btn-outline-danger btn-sm">Kemaskini</button>
 
@@ -277,9 +280,88 @@
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#detailjawatan">
+        Launch
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detailjawatan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Maklumat Jawatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                      
+                            <div class="mb-2">
+                                <label for="jawatan">Jawatan</label>
+                                <input type="text" class="form-control" id="jawatan" value="" disabled>
+                            </div>
+                            <div class="mb-2">
+                                <label for="gred">Gred</label>
+                                 <input type="text" class="form-control" id="gred" value="" disabled>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="mb-2">
+                                        <label for="bil_permohonan">Bil. Dimohon</label>
+                                       <input type="text" class="form-control" id="bil_permohonan" value="" disabled>
+                                   </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-2">
+                                        <label for="bil_lulus">Bil. Diluluskan</label>
+                                       <input type="text" class="form-control" id="bil_lulus" value="" disabled>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                 <label for="penempatan">Penempatan</label>
+                                <input type="text" class="form-control" id="penempatan" value="" disabled>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th>Tindakan</th>
+                                            <th>Tarikh</th>
+                                         </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row"></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script>
+        var detailjawatan = document.getElementById('detailjawatan');
+
+        detailjawatan.addEventListener('show.bs.modal', function(event) {
+            // Button that triggered the modal
+            let button = event.relatedTarget;
+            // Extract info from data-bs-* attributes
+            let recipient = button.getAttribute('data-bs-whatever');
+
+            // Use above variables to manipulate the DOM
+        });
+
         var statusJawatan = document.getElementById('statusJawatan');
 
         statusJawatan.addEventListener('show.bs.modal', function(event) {

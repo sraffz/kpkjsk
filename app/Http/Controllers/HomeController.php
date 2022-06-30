@@ -148,7 +148,15 @@ class HomeController extends Controller
     {
         $skim = DB::table('skim')->get();
         $gred = DB::table('gred_gaji')->get();
-        
+        $jabatan = DB::table('jabatan')->get();
+
+        $permohonan = Permohonan::find($id);
+        $jawatan = DB::table('senarai_jawatan_dipohon')
+            ->where('id', $id)
+            ->get();
+
+        $tindakan = DB::table('tindakan_terkini_jawatan')->get();
+
         return view('permohonan.butiran', compact('skim', 'gred', 'jabatan', 'permohonan', 'jawatan', 'tindakan'));
     }
 

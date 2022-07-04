@@ -161,10 +161,179 @@
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-outline-tertiary btn-sm"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#detailjawatan">Butiran</button>
-                                                <button type="button"
-                                                    class="btn btn-outline-danger btn-sm">Kemaskini</button>
+                                                    data-bs-target="#detailjawatan-{{ $jwtn->id_jawatan_dimohon }}"
+                                                    data-bs-jawatan="{{ $jwtn->nama_skim }}">Butiran</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#kemaskinijawatan-{{ $jwtn->id_jawatan_dimohon }}"
+                                                    data-bs-jawatan="{{ $jwtn->nama_skim }}">Kemaskini</button>
+                                            </div>
+                                            <!-- Modal Butiran Jawatan-->
+                                            <div class="modal fade" id="detailjawatan-{{ $jwtn->id_jawatan_dimohon }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Maklumat Jawatan</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
 
+                                                                <div class="mb-2">
+                                                                    <label for="jawatan">Jawatan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="jawatan" value="{{ $jwtn->nama_skim }}"
+                                                                        disabled>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="gred">Gred</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="gred" value="{{ $jwtn->gred }}"
+                                                                        disabled>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6">
+                                                                        <div class="mb-2">
+                                                                            <label for="bil_permohonan">Bil.
+                                                                                Dimohon</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="bil_permohonan"
+                                                                                value="{{ $jwtn->bil_jawatan }}"
+                                                                                disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <div class="mb-2">
+                                                                            <label for="bil_lulus">Bil. Diluluskan</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="bil_lulus"
+                                                                                value="{{ $jwtn->bil_diluluskan }}"
+                                                                                disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="penempatan">Penempatan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="penempatan" value="{{ $jwtn->penempatan }}"
+                                                                        disabled>
+                                                                </div>
+                                                                <div class="table-responsive ">
+                                                                    <table class="table table-bordered mt-4">
+                                                                        <thead class="thead-default">
+                                                                            <tr>
+                                                                                <th>Tindakan</th>
+                                                                                <th>Tarikh</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($tindakan_jawatan as $tj)
+                                                                                @if ($tj->id_jawatan_dipohon == $jwtn->id_jawatan_dimohon)
+                                                                                    <tr>
+                                                                                        <td scope="row">
+                                                                                            {{ $tj->tindakan }}
+                                                                                        </td>
+                                                                                        <td>{{ \Carbon\carbon::parse($tj->tarikh)->format('d-m-Y') }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Tutup</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal kemaskini Jawatan-->
+                                            <div class="modal fade"
+                                                id="kemaskinijawatan-{{ $jwtn->id_jawatan_dimohon }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Maklumat Jawatan</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $jwtn->id_jawatan_dimohon }}">
+                                                                <div class="mb-2">
+                                                                    <label for="jawatan">Jawatan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="jawatan" value="{{ $jwtn->nama_skim }}">
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="gred">Gred</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="gred" value="{{ $jwtn->gred }}">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-6">
+                                                                        <div class="mb-2">
+                                                                            <label for="bil_permohonan">Bil.
+                                                                                Dimohon</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="bil_permohonan"
+                                                                                value="{{ $jwtn->bil_jawatan }}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <div class="mb-2">
+                                                                            <label for="bil_lulus">Bil. Diluluskan</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="bil_lulus"
+                                                                                value="{{ $jwtn->bil_diluluskan }}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <label for="penempatan">Penempatan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="penempatan"
+                                                                        value="{{ $jwtn->penempatan }}">
+                                                                </div>
+                                                                <div class="table-responsive ">
+                                                                    <table class="table table-bordered mt-4">
+                                                                        <thead class="thead-default">
+                                                                            <tr>
+                                                                                <th>Tindakan</th>
+                                                                                <th>Tarikh</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($tindakan_jawatan as $tj)
+                                                                                @if ($tj->id_jawatan_dipohon == $jwtn->id_jawatan_dimohon)
+                                                                                    <tr>
+                                                                                        <td scope="row">
+                                                                                            {{ $tj->tindakan }}
+                                                                                        </td>
+                                                                                        <td>{{ \Carbon\carbon::parse($tj->tarikh)->format('d-m-Y') }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Tutup</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         @if ($jwtn->status_permohonan_jawatan == 'LULUS')
@@ -178,6 +347,7 @@
                                         @endif
                                     </td>
                                 </tr>
+
                                 @php
                                     $k++;
                                 @endphp
@@ -210,10 +380,9 @@
                                 <select onchange="checkOptions(this)" class="form-select" name="status_tindakan"
                                     id="status_tindakan" required>
                                     <option value="">SILA PILIH</option>
-                                    <option value="IKLAN JAWATAN">IKLAN JAWATAN</option>
-                                    <option value="UJIAN">UJIAN</option>
-                                    <option value="UJIAN FIZIKAL">UJIAN FIZIKAL</option>
-                                    <option value="TEMUDUGA">TEMUDUGA</option>
+                                    @foreach ($senarai_tindakan as $st)
+                                    <option value="{{  $st->id }}">{{  $st->tindakan }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="row">
@@ -280,88 +449,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#detailjawatan">
-        Launch
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="detailjawatan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Maklumat Jawatan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                      
-                            <div class="mb-2">
-                                <label for="jawatan">Jawatan</label>
-                                <input type="text" class="form-control" id="jawatan" value="" disabled>
-                            </div>
-                            <div class="mb-2">
-                                <label for="gred">Gred</label>
-                                 <input type="text" class="form-control" id="gred" value="" disabled>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="mb-2">
-                                        <label for="bil_permohonan">Bil. Dimohon</label>
-                                       <input type="text" class="form-control" id="bil_permohonan" value="" disabled>
-                                   </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="mb-2">
-                                        <label for="bil_lulus">Bil. Diluluskan</label>
-                                       <input type="text" class="form-control" id="bil_lulus" value="" disabled>
-                                   </div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                 <label for="penempatan">Penempatan</label>
-                                <input type="text" class="form-control" id="penempatan" value="" disabled>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-default">
-                                        <tr>
-                                            <th>Tindakan</th>
-                                            <th>Tarikh</th>
-                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td scope="row"></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                </table>
-                            </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('script')
     <script>
-        var detailjawatan = document.getElementById('detailjawatan');
-
-        detailjawatan.addEventListener('show.bs.modal', function(event) {
-            // Button that triggered the modal
-            let button = event.relatedTarget;
-            // Extract info from data-bs-* attributes
-            let recipient = button.getAttribute('data-bs-whatever');
-
-            // Use above variables to manipulate the DOM
-        });
-
         var statusJawatan = document.getElementById('statusJawatan');
 
         statusJawatan.addEventListener('show.bs.modal', function(event) {

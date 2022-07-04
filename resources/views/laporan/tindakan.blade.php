@@ -88,7 +88,7 @@
                     <th class="border-gray-200">#</th>
                     <th class="border-gray-200">Jawatan</th>
                     <th class="border-gray-200 ">Iklan</th>
-                     <th  class="border-gray-200">Ujian</th>
+                    <th class="border-gray-200">Ujian</th>
                     <th class="border-gray-200">Ujian fizikal</th>
                     <th class="border-gray-200">temuduga</th>
                     {{-- <th class="border-gray-200">diLantik</th> --}}
@@ -99,17 +99,58 @@
                 @php
                     $i = 1;
                 @endphp
-             
-             </tbody>
+                @foreach ($laporan_jumlah_jawatan as $ljj)
+                    <tr class="text-center">
+                        <td>
+                            {{ $i++ }}
+                        </td>
+                        <td class="text-start">
+                            {{ $ljj->nama_jawatan }}
+                        </td>
+                        <td>
+                            @foreach ($laporan as $lprn)
+                                @if ($lprn->id_tindakan == 1 && $lprn->id == $ljj->id)
+                                    {{ $lprn->jumlah }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($laporan as $lprn)
+                                @if ($lprn->id_tindakan == 2 && $lprn->id == $ljj->id)
+                                    {{ $lprn->jumlah }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+
+                            @foreach ($laporan as $lprn)
+                                @if ($lprn->id_tindakan == 3 && $lprn->id == $ljj->id)
+                                    {{ $lprn->jumlah }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($laporan as $lprn)
+                                @if ($lprn->id_tindakan == 4 && $lprn->id == $ljj->id)
+                                    {{ $lprn->jumlah }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            {{ $ljj->jumlah }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 @endsection
 @section('script')
     <script>
-        $( '#basic-usage' ).select2( {
+        $('#basic-usage').select2({
             theme: "bootstrap-5",
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: $( this ).data( 'placeholder' ),
-        } );
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+        });
     </script>
 @endsection

@@ -10,6 +10,8 @@ use App\JawatanDimohon;
 use App\Permohonan;
 use App\StatusTerkiniPermohonan;
 
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -43,6 +45,16 @@ class HomeController extends Controller
     public function tetapan()
     {
         return view('tetapan');
+    }
+
+    public function pengguna()
+    {
+        $skim = DB::table('skim')->get();
+        $gred = DB::table('gred_gaji')->get();
+
+        $users = DB::table('senarai_pengguna')->get();
+
+        return view('pengguna', compact('users', 'skim', 'gred'));
     }
 
     public function permohonanbaru()
@@ -104,7 +116,6 @@ class HomeController extends Controller
             'no_rujukan_surat' => $req->no_rujukan_surat,
             'tarikh_surat' => \Carbon\Carbon::parse($req->tarikh_surat)->format('Y-m-d'),
             'tarikh_terima_surat' => \Carbon\Carbon::parse($req->tarikh_terima_surat)->format('Y-m-d'),
-            'status_permohonan' => 'Baru',
             'catatan' => $req->catatan,
         ]);
 
@@ -132,8 +143,8 @@ class HomeController extends Controller
                     'gred_jawatan' => $req->input('addMoreInputFields.' . $i . '.gred'),
                     'bil_jawatan' => $req->input('addMoreInputFields.' . $i . '.bilangan'),
                     'penempatan' => $req->input('addMoreInputFields.' . $i . '.penempatan'),
-                    'status_permohonan_jawatan' => 'Baru',
-                    'bil_diluluskan' => 0,
+                    // 'status_permohonan_jawatan' => 'Baru',
+                    // 'bil_diluluskan' => 0,
                     'catatan' => '',
                 ]);
 
@@ -155,9 +166,14 @@ class HomeController extends Controller
             ->where('id', $id)
             ->get();
 
+        $senarai_tindakan = DB::table('tindakan_permohonan')->get();
+        $tindakan_jawatan = StatusTerkiniPermohonan::select('status_terkini_permohonan.*', 'tindakan_permohonan.tindakan')
+        ->join('tindakan_permohonan', 'tindakan_permohonan.id', '=', 'status_terkini_permohonan.status_jawatan')
+        ->get();
+
         $tindakan = DB::table('tindakan_terkini_jawatan')->get();
 
-        return view('permohonan.butiran', compact('skim', 'gred', 'jabatan', 'permohonan', 'jawatan', 'tindakan'));
+        return view('permohonan.butiran', compact('senarai_tindakan','skim', 'gred', 'jabatan', 'tindakan_jawatan', 'permohonan', 'jawatan', 'tindakan'));
     }
 
     public function permohonanpadam($id)
@@ -199,11 +215,41 @@ class HomeController extends Controller
 
     public function laporanTindakan()
     {
-        return view('laporan.tindakan');
+        $laporan = DB::table('laporan_terkini_tindakan')->get();
+        $laporan_jumlah_jawatan = DB::table('jumlah_tindakan_skim')->get();
+
+        return view('laporan.tindakan', compact('laporan', 'laporan_jumlah_jawatan'));
     }
 
     public function laporanPermohonan()
     {
         return view('laporan.permohonan');
+    }
+
+    public function kemaskiniMaklumatDiri(Request $req)
+    {
+        User::where('id', Auth::user()->id)
+        ->update([
+            'name' => $req->nama,
+            'email' => $req->email
+        ]);
+
+        return back();
+    }
+
+    public function kemaskiniPengguna(Request $req)
+    {
+        $id = $req->id;
+
+        User::where('id', $id)
+        ->update([
+            'name' => $req->nama,
+            'email' => $req->email,
+            'gred' => $req->gred,
+            'jawatan' => $req->jawatan,
+            'nokp' => $req->nokp
+        ]);
+
+        return back();
     }
 }

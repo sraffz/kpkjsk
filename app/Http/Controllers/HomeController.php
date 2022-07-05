@@ -167,6 +167,7 @@ class HomeController extends Controller
             ->get();
 
         $senarai_tindakan = DB::table('tindakan_permohonan')->get();
+        
         $tindakan_jawatan = StatusTerkiniPermohonan::select('status_terkini_permohonan.*', 'tindakan_permohonan.tindakan')
         ->join('tindakan_permohonan', 'tindakan_permohonan.id', '=', 'status_terkini_permohonan.status_jawatan')
         ->get();

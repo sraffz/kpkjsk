@@ -114,25 +114,24 @@
                                 <input type="text" class="form-control" name="nokp" id="nokp"
                                     aria-describedby="helpId" placeholder="No Kad Pengenalan" value="">
                             </div>
+                             
                             <div class="mb-2">
                                 <label for="jawatan" class="form-label">Jawatan</label>
-                                <select class="form-select select2bs4" name="jawatan" id="jawatan"
+                                <select style="width: 100%" class="form-select select2bs4" name="jawatan" id="jawatan"
                                       required>
-                                    <option value="">Sila Pilih</option>
+                                    {{-- <option value="">Sila Pilih</option> --}}
                                     @foreach ($skim as $skims)
-                                        <option value="{{ $skims->id }}">
-                                            {{ $skims->diskripsi }}</option>
+                                        <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="gred" class="form-label">Gred</label>
-                                <select class="form-select select2bs4" name="gred" id="gred"
+                                 <label for="gred" class="form-label">Gred</label>
+                                <select style="width: 100%" class="form-select select2bs4" id="gred" name="gred" id="gred"
                                   required>
-                                    <option value="">Sila Pilih</option>
+                                    {{-- <option value="">Sila Pilih</option> --}}
                                     @foreach ($gred as $greds)
-                                        <option value="{{ $greds->kod }}">
-                                            {{ $greds->kod }}</option>
+                                        <option value="{{ $greds->kod }}">{{ $greds->kod }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -169,10 +168,9 @@
             $(".modal-body #nama").val(nama);
             $(".modal-body #email").val(email);
             $(".modal-body #nokp").val(nokp);
-            $(".modal-body #jawatan").val(jawatan);
-            $(".modal-body #gred").val(gred);
+            $(".modal-body #jawatan").val(jawatan).select2({theme: "bootstrap-5",dropdownParent: $(".modal-body"),} );
+            $(".modal-body #gred").val(gred).select2({theme: "bootstrap-5",dropdownParent: $(".modal-body"),} );
+         }); 
 
-
-        });
-    </script>
+     </script>
 @endsection

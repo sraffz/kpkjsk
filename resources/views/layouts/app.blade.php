@@ -11,7 +11,7 @@
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('volt/assets/img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('volt/assets/img/brand/sukk.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('volt/assets/img/brand/sukk.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('volt/assets/img/brand/sukk.png') }}">
     <link rel="manifest" href="{{ asset('volt/assets/img/favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('volt/assets/img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
@@ -26,10 +26,17 @@
     <!-- Volt CSS -->
     <link type="text/css" href="{{ asset('volt/css/volt.css') }}" rel="stylesheet">
 
+    <!-- Select2 BS4 -->
+    <link type="text/css" href="{{ asset('volt/css/volt.css') }}" rel="stylesheet">
+
+    {{-- <!-- sweetalert2 -->
+    <link rel="stylesheet" href="{{ asset('sweetalert/sweetalert2.min.css') }}"> --}}
+
+    <!-- Select2 BS5 -->
     <link rel="stylesheet" href="{{ asset('css/select2bs5/select2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.min.css') }}" /> 
     <!-- Or for RTL support -->
-    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.rtl.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.rtl.min.css') }}" /> 
 
     <style>
         .alignRight {
@@ -104,11 +111,27 @@
     <!-- Volt JS -->
     <script src="{{ asset('volt/assets/js/volt.js') }}"></script>
 
+    <!-- Select2 BS5-->
     <script src="{{ asset('js/select2bs5/jquery.slim.min.js') }}"></script>
     <script src="{{ asset('js/select2bs5/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/select2bs5/select2.min.js') }}"></script>
 
+    <!-- SweetAlert -->
+    {{-- <script src="{{ asset('sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('sweetalert/sweetalert2.min.js') }}"></script> --}}
+
     @yield('script')
+
+    <script>
+         $(document).ready(function() {
+            $('.select2bs4').select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                
+             } );
+        });
+
+    </script>
 </body>
 
 </html>

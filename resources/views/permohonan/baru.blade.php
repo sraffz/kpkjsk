@@ -72,7 +72,7 @@
                         <div class="col-md-6 mb-3">
                             <div>
                                 <label for="jabatan">Jabatan/Agensi</label>
-                                <select class="form-select w-100 mb-0 select2" name="jabatan" aria-label="State select example" required>
+                                <select class="form-select w-100 mb-0 select2bs4" name="jabatan" aria-label="State select example" required>
                                     <option value="">Jabatan/Agensi</option>
                                     @foreach ($jabatan as $jbtn)
                                         <option value="{{ $jbtn->jabatan_id }}">{{ $jbtn->nama_jabatan }}</option>
@@ -181,7 +181,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <select class="form-select mb-0 select2" name="addMoreInputFields[0][jawatan]"
+                                    <select style="width: 100%" class="form-select mb-0 select2bs4" name="addMoreInputFields[0][jawatan]"
                                         aria-label="Jawatan" required>
                                         <option value="">Jawatan</option>
                                         @foreach ($skim as $skims)
@@ -190,7 +190,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-select mb-0 select2" name="addMoreInputFields[0][gred]"
+                                    <select style="width: 100%" class="form-select mb-0 select2bs4" name="addMoreInputFields[0][gred]"
                                         aria-label="Gred" required>
                                         <option value="">Gred</option>
                                         @foreach ($gred as $gredd)
@@ -226,11 +226,12 @@
 
     <script type="text/javascript">
         var i = 0;
+        $('.select2bs4').select2( { theme: "bootstrap-5" } );
         $("#dynamic-ar").click(function() {
             ++i;
             $("#dynamicAddRemove").append(
-                '<tr><td><select class="form-select mb-0 select2" name="addMoreInputFields['
-                    + i +'][jawatan]"aria-label="Pilih Jawatan" required> <option value="">Jawatan</option> @foreach ($skim as $skims) <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td> <td> <select class="form-select mb-0 select2" name="addMoreInputFields['
+                '<tr><td><select class="form-select mb-0 select2bs4" name="addMoreInputFields['
+                    + i +'][jawatan]"aria-label="Pilih Jawatan" required> <option value="">Jawatan</option> @foreach ($skim as $skims) <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td> <td> <select class="form-select mb-0 select2bs4" name="addMoreInputFields['
                         + i +'][gred]" id="gred" aria-label="Gred select example" required><option value="">Gred</option>@foreach ($gred as $gredd)<option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>@endforeach</select></td><td><input class="form-control" id="bilangan" name="addMoreInputFields['
                             + i +'][bilangan]" type="number" placeholder=" " required></td><td><input class="form-control" id="penempatan" name="addMoreInputFields['
                             + i +'][penempatan]" type="text" placeholder="Penempatan" required></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
@@ -241,13 +242,13 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            $('.select2').select2( {
-                theme: "bootstrap-5",
-                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-             } );
-        });
-        
+        // $(document).ready(function() {
+        //     $('.select2bs4').select2( {
+        //         theme: "bootstrap-5",
+        //         width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+        //      } );
+          
+        // });
     </script>
  
 @endsection

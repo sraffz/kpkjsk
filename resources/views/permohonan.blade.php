@@ -83,7 +83,7 @@
         </div> --}}
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
         <table class="table table-stripe table-bordered align-middle" style="width: 100%">
-            <thead>
+            <thead class="thead-light">
                 <tr class="text-center ">
                     <th class="border-gray-200">#</th>
                     <th class="border-gray-200">Jabatan</th>

@@ -21,6 +21,7 @@ Route::get('/halaman-utama', 'HomeController@index')->name('home');
 Route::get('/permohonan', 'HomeController@permohonan')->name('permohonan');
 Route::get('/tetapan', 'HomeController@tetapan')->name('tetapan');
 Route::get('/pengguna', 'HomeController@pengguna')->name('pengguna');
+Route::get('/pengguna-baru', 'HomeController@penggunaBaru')->name('pengguna-baru');
 Route::get('/permohonan-baru', 'HomeController@permohonanbaru')->name('permohonan.baru');
 Route::get('/permohonan-kemaskini/{id}', 'HomeController@permohonankemaskini')->name('permohonan.kemaskini');
 Route::get('/permohonan-butiran/{id}', 'HomeController@permohonanbutiran')->name('permohonan.butiran');
@@ -35,6 +36,7 @@ Route::POST('/kemaskini-status-jawatan', 'HomeController@kemaskiniStatusJawatan'
 Route::POST('/kemaskini-status-tindakan-jawatan', 'HomeController@kemaskiniStatusTindakanJawatan')->name('kemaskini-status-tindakan-jawatan');
 Route::POST('/kemaskini-maklumat-diri', 'HomeController@kemaskiniMaklumatDiri')->name('kemaskini-maklumat-diri');
 Route::POST('/kemaskini-pengguna', 'HomeController@kemaskiniPengguna')->name('kemaskini-pengguna');
+Route::POST('/tambah-pengguna', 'HomeController@tambahPengguna')->name('tambah-pengguna');
 
 
 

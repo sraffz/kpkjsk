@@ -31,7 +31,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $bil = DB::table('jumlah_mengikut_tindakan_terkini')->GET();
+
+        return view('home', compact('bil'));
     }
 
     public function permohonan()
@@ -55,6 +57,11 @@ class HomeController extends Controller
         $users = DB::table('senarai_pengguna')->get();
 
         return view('pengguna', compact('users', 'skim', 'gred'));
+    }
+
+    public function penggunaBaru()
+    {
+        return view('pengguna.baru');
     }
 
     public function permohonanbaru()

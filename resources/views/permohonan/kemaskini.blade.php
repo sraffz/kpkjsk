@@ -23,7 +23,7 @@
                         <div class="col-md-6 mb-3">
                             <div>
                                 <label for="jabatan">Jabatan/Agensi</label>
-                                <select class="form-select w-100 mb-0 select2bs4" name="jabatan" aria-label="State select example" required>
+                                <select class="form-select w-100 mb-0 select2bs55" name="jabatan" aria-label="State select example" required>
                                     <option style="width: 100%" value="">Jabatan/Agensi</option>
                                     @foreach ($jabatan as $jbtn)
                                         <option value="{{ $jbtn->jabatan_id }}" {{ $jbtn->jabatan_id == $permohonan->jabatan ? 'selected' : '' }}>{{ $jbtn->nama_jabatan }}</option>
@@ -96,7 +96,7 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="addMoreInputFields[{{ $k }}][id_jawatan]" value="{{ $jwtn->id_jawatan_dimohon }}">
-                                        <select style="width: 100%" class="form-select mb-0 select2bs4" id="jawatan" name="addMoreInputFields[{{ $k }}][jawatan]"
+                                        <select style="width: 100%" class="form-select mb-0 select2bs55" id="jawatan" name="addMoreInputFields[{{ $k }}][jawatan]"
                                             aria-label="Jawatan" required>
                                             <option value="">Jawatan</option>
                                             @foreach ($skim as $skims)
@@ -105,7 +105,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select style="width: 100%" class="form-select mb-0 select2bs4" name="addMoreInputFields[{{ $k }}][gred]" id="gred"
+                                        <select style="width: 100%" class="form-select mb-0 select2bs55" name="addMoreInputFields[{{ $k }}][gred]" id="gred"
                                             aria-label="Gred" required>
                                             <option value="">Gred</option>
                                             @foreach ($gred as $gredd)
@@ -146,24 +146,29 @@
 @section('script')
 
     <script type="text/javascript">
+        $('.select2bs55').select2({ 
+            theme: "bootstrap-5", 
+            tags: true,  
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+            });
+
         var i = {{$k-1}};
         $("#dynamic-ar").click(function() {
             ++i;
-            $(document).ready(function() {
-            $('#select2-.i.').select2( {
-                theme: "bootstrap-5",
-                    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-                } );
-            });
-            $("#dynamicAddRemove").append('<tr><td><select class="form-select mb-0" id="select2-'+ i +'" name="addMoreInputFields['+ i +'][jawatan]"aria-label="Pilih Jawatan" required><option value="">Jawatan</option>@foreach ($skim as $skims)<option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td><td> <select class="form-select mb-0 selectitems" name="addMoreInputFields['+ i +'][gred]" id="gred" aria-label="Gred select example" required><option value="">Gred</option>@foreach ($gred as $gredd)<option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>@endforeach</select></td><td><input class="form-control" id="bilangan" name="addMoreInputFields['+ i +'][bilangan]" type="number" placeholder=" " required></td><td><input class="form-control" id="penempatan" name="addMoreInputFields['+ i +'][penempatan]" type="text" placeholder="Penempatan" required></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+            $("#dynamicAddRemove").append('<tr><td><select class="form-select mb-0 select2bs55" id="" name="addMoreInputFields['+ i +'][jawatan]"aria-label="Pilih Jawatan" required><option value="">Jawatan</option>@foreach ($skim as $skims)<option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td><td> <select class="form-select mb-0 select2bs55" name="addMoreInputFields['+ i +'][gred]" id="gred" aria-label="Gred select example" required><option value="">Gred</option>@foreach ($gred as $gredd)<option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>@endforeach</select></td><td><input class="form-control" id="bilangan" name="addMoreInputFields['+ i +'][bilangan]" type="number" placeholder=" " required></td><td><input class="form-control" id="penempatan" name="addMoreInputFields['+ i +'][penempatan]" type="text" placeholder="Penempatan" required></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
+            $("#dynamicAddRemove .select2bs55").select2({ theme: "bootstrap-5",tags: true,  
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+            });
         });
         $(document).on('click', '.remove-input-field', function() {
             $(this).parents('tr').remove();
         });
    
         // $(document).ready(function() {
-        //     $('.select2bs4').select2( {
+        //     $('.select2bs5').select2( {
         //         theme: "bootstrap-5",
         //         width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
         //         placeholder: $( this ).data( 'placeholder' ),

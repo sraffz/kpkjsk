@@ -23,7 +23,7 @@
             {{-- <p class="mb-0">Your web analytics dashboard template.</p> --}}
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <a href="{{ url('pengguna-baru') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                 <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
@@ -50,7 +50,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Item -->
                 @php
                     $i = 1;
                 @endphp
@@ -80,13 +79,12 @@
                                 <button type="button" class="btn btn-outline-danger btn-sm">Padam</button>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    <!-- Modal -->
+    <!-- Modal Kemaskini Pengguna-->
     <div class="modal fade" id="kemaskini" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -114,11 +112,11 @@
                                 <input type="text" class="form-control" name="nokp" id="nokp"
                                     aria-describedby="helpId" placeholder="No Kad Pengenalan" value="">
                             </div>
-                             
+
                             <div class="mb-2">
                                 <label for="jawatan" class="form-label">Jawatan</label>
                                 <select style="width: 100%" class="form-select select2bs4" name="jawatan" id="jawatan"
-                                      required>
+                                    required>
                                     {{-- <option value="">Sila Pilih</option> --}}
                                     @foreach ($skim as $skims)
                                         <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>
@@ -126,9 +124,9 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                 <label for="gred" class="form-label">Gred</label>
-                                <select style="width: 100%" class="form-select select2bs4" id="gred" name="gred" id="gred"
-                                  required>
+                                <label for="gred" class="form-label">Gred</label>
+                                <select style="width: 100%" class="form-select select2bs4" id="gred" name="gred"
+                                    id="gred" required>
                                     {{-- <option value="">Sila Pilih</option> --}}
                                     @foreach ($gred as $greds)
                                         <option value="{{ $greds->kod }}">{{ $greds->kod }}</option>
@@ -147,8 +145,6 @@
     </div>
 @endsection
 @section('script')
-   
-
     <script>
         var kemaskini = document.getElementById('kemaskini');
 
@@ -168,9 +164,14 @@
             $(".modal-body #nama").val(nama);
             $(".modal-body #email").val(email);
             $(".modal-body #nokp").val(nokp);
-            $(".modal-body #jawatan").val(jawatan).select2({theme: "bootstrap-5",dropdownParent: $(".modal-body"),} );
-            $(".modal-body #gred").val(gred).select2({theme: "bootstrap-5",dropdownParent: $(".modal-body"),} );
-         }); 
-
-     </script>
+            $(".modal-body #jawatan").val(jawatan).select2({
+                theme: "bootstrap-5",
+                dropdownParent: $(".modal-body"),
+            });
+            $(".modal-body #gred").val(gred).select2({
+                theme: "bootstrap-5",
+                dropdownParent: $(".modal-body"),
+            });
+        });
+    </script>
 @endsection

@@ -11,6 +11,7 @@ use App\Permohonan;
 use App\StatusTerkiniPermohonan;
 
 use Auth;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -31,9 +32,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $bil_jawatan_dimohon =  JawatanDimohon::sum('bil_jawatan');
+        $bil_jawatan_lulus =  JawatanDimohon::where('status_permohonan_jawatan', 'LULUS')->sum('bil_diluluskan');
+        $bil_tindakan = DB::table('jumlah_mengikut_tindakan_terkini')->sum('jumlah');
+        
         $bil = DB::table('jumlah_mengikut_tindakan_terkini')->GET();
 
-        return view('home', compact('bil'));
+        return view('home', compact('bil', 'bil_jawatan_dimohon', 'bil_jawatan_lulus', 'bil_tindakan'));
     }
 
     public function permohonan()
@@ -61,7 +66,10 @@ class HomeController extends Controller
 
     public function penggunaBaru()
     {
-        return view('pengguna.baru');
+        $skim = DB::table('skim')->get();
+        $gred = DB::table('gred_gaji')->get();
+
+        return view('pengguna.baru', compact('skim', 'gred'));
     }
 
     public function permohonanbaru()
@@ -259,5 +267,19 @@ class HomeController extends Controller
         ]);
 
         return back();
+    }
+
+    public function tambahPengguna(Request $req)
+    {
+        $user = new User;
+        $user->name = $req->nama;
+        $user->email = $req->email;
+        $user->nokp = $req->nokp;
+        $user->jawatan = $req->jawatan;
+        $user->gred = $req->gred;
+        $user->password = Hash::make($req->nokp);
+        $user->save();
+
+        return redirect('/pengguna');
     }
 }

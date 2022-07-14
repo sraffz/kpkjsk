@@ -84,13 +84,13 @@
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
         <table class="table table-stripe table-bordered align-middle" style="width: 100%">
             <thead class="thead-light">
-                <tr class="text-center ">
+                <tr class="text-center align-middle">
                     <th class="border-gray-200">#</th>
                     <th class="border-gray-200">Jabatan</th>
                     <th class="border-gray-200 ">Jawatan Dipohon</th>
                     {{-- <th class="border-gray-200">Gred</th> --}}
                     <th  class="border-gray-200">Bilangan <br> Permohonan</th>
-                    <th class="border-gray-200">Status</th>
+                    <th class="border-gray-200">Status </th>
                     <th class="border-gray-200">Tindakan</th>
                 </tr>
             </thead>
@@ -113,7 +113,11 @@
                                 <td class="flex-sm-wrap"> {{ $jawatans->nama_skim }} </td>
                                 {{-- <td> {{ $jawatans->gred }}</td> --}}
                                 <td class="text-center"> {{ $jawatans->bil_jawatan }} </td>
-                                <td class="text-center"> {{ $jawatans->status_permohonan_jawatan }} </td>
+                                <td class="text-center"> {{ $jawatans->status_permohonan_jawatan }} 
+                                    @if ($jawatans->status_permohonan_jawatan == 'LULUS')
+                                    ({{ $jawatans->bil_diluluskan }})
+                                    @endif 
+                                </td>
                                 @if ($sec == true)
                                     <td rowspan="{{ $permohonans->bil_jawatan }}" style="vertical-align: middle" class="text-center">
                                         <div class="btn-group">

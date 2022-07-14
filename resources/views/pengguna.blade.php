@@ -76,7 +76,9 @@
                                     data-bs-nama="{{ $pengguna->name }}" data-bs-nokp="{{ $pengguna->nokp }}"
                                     data-bs-email="{{ $pengguna->email }}"
                                     data-bs-jawatan="{{ $pengguna->jawatan }}">Kemaskini</button>
-                                <button type="button" class="btn btn-outline-danger btn-sm">Padam</button>
+
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#padampengguna" data-bs-id="{{ $pengguna->id }}">Padam</button>
                             </div>
                         </td>
                     </tr>
@@ -89,7 +91,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Kemaskini Pengguna</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('kemaskini-pengguna') }}" method="post">
@@ -142,7 +144,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>    
 @endsection
 @section('script')
     <script>

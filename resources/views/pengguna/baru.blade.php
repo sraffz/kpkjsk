@@ -60,17 +60,55 @@
                 </div> --}}
             </div>
         </div>
- 
+
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card card-body border-0 shadow mb-4">
                 <h2 class="h5 mb-4">Butiran Pengguna</h2>
-                 <form method="POST"  action="{{ route('tambah-pengguna') }}" class="form-control" autocomplete="off">
-                    {{ csrf_field() }}
-                     
-                    <div class="mt-3">
-                        <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Simpan</button>
+                <form action="{{ route('tambah-pengguna') }}" method="post">
+                    <div class="container-fluid">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" id="id">
+                        <div class="mb-2">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="nama"
+                                aria-describedby="helpId" placeholder="Nama" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email"
+                                aria-describedby="helpId" placeholder="Email" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="nokp" class="form-label">No Kad Pengenalan</label>
+                            <input type="text" class="form-control" name="nokp" id="nokp"
+                                aria-describedby="helpId" placeholder="No Kad Pengenalan" required>
+                            <small class="mb-4"><span  class="text-danger">*</span> <i>Kata laluan buat pertama kali adalah no kad pengenalan</i> </small>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="jawatan" class="form-label">Jawatan</label>
+                            <select class="form-select select2bs4" name="jawatan" id="jawatan" required>
+                                <option value="">Sila Pilih</option>
+                                @foreach ($skim as $skims)
+                                    <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gred" class="form-label">Gred</label>
+                            <select class="form-select select2bs4" id="gred" name="gred" id="gred" required>
+                                <option value="">Sila Pilih</option>
+                                @foreach ($gred as $greds)
+                                    <option value="{{ $greds->kod }}">{{ $greds->kod }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> --}}
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

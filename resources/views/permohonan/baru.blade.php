@@ -60,19 +60,20 @@
                 </div> --}}
             </div>
         </div>
- 
+
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card card-body border-0 shadow mb-4">
                 <h2 class="h5 mb-4">Butiran Permohonan</h2>
-                 <form method="POST"  action="{{ route('simpan-permohonan-baru') }}" class="form-control" autocomplete="off">
+                <form method="POST" action="{{ route('simpan-permohonan-baru') }}" class="form-control" autocomplete="off">
                     {{ csrf_field() }}
-                     <div class="row">
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <div>
                                 <label for="jabatan">Jabatan/Agensi</label>
-                                <select class="form-select w-100 mb-0 select2append" name="jabatan" aria-label="State select example" required>
+                                <select class="form-select w-100 mb-0 select2append" name="jabatan"
+                                    aria-label="State select example" required>
                                     <option value="">Jabatan/Agensi</option>
                                     @foreach ($jabatan as $jbtn)
                                         <option value="{{ $jbtn->jabatan_id }}">{{ $jbtn->nama_jabatan }}</option>
@@ -115,8 +116,8 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </span>
-                                <input data-datepicker="" class="form-control" id="tarikh_terima_surat" name="tarikh_terima_surat"
-                                    type="text" placeholder="dd/mm/yyyy" required>
+                                <input data-datepicker="" class="form-control" id="tarikh_terima_surat"
+                                    name="tarikh_terima_surat" type="text" placeholder="dd/mm/yyyy" required>
                             </div>
                         </div>
                     </div>
@@ -125,51 +126,8 @@
                             <label for="tarikh_terima_surat">Catatan</label>
                             <textarea class="form-control" name="catatan" id="catatan" rows="3"></textarea>
                         </div>
-                     </div>
-                    <h2 class="h5 my-4">Jawatan Dimohon</h2>
-                    {{-- <div class="row">
-                        <div class="col-sm-5 mb-3">
-                            <div class="form-group">
-                                <label for="jawatan">Jawatan</label>
-                                <select class="form-select mb-0" id="jawatan" name="jawatan"
-                                    aria-label="Jawatan select example" required>
-                                    <option value="">Jawatan</option>
-                                    @foreach ($skim as $skims)
-                                        <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <div class="form-group">
-                                <label for="gred">Gred</label>
-                                <select class="form-select mb-0" name="gred" id="gred"
-                                    aria-label="Gred select example" required>
-                                    <option value="">Gred</option>
-                                    @foreach ($gred as $gredd)
-                                        <option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 mb-3">
-                            <div class="form-group">
-                                <label for="bilangan">Bil Permohonan</label>
-                                <input class="form-control" id="bilangan" name="bilangan" type="number"
-                                    placeholder="Bilangan" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 mb-3">
-                            <div class="form-group">
-                                <label for="penempatan">Penempatan</label>
-                                <input class="form-control" id="penempatan" name="penempatan" type="text"
-                                    placeholder="Penempatan" required>
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="text-end">
-                        {{-- <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Tambah Jawatan</button> --}}
                     </div>
+                    <h2 class="h5 my-4">Jawatan Dimohon</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dynamicAddRemove">
                             <tr>
@@ -177,12 +135,12 @@
                                 <th style="width: 15%">Gred</th>
                                 <th style="width: 13%">Bil</th>
                                 <th style="width: 20%">Penempatan</th>
-                                <th >Tindakan</th>
+                                <th>Tindakan</th>
                             </tr>
                             <tr>
                                 <td>
-                                    <select style="width: 100%" class="form-select mb-0 select2append" name="addMoreInputFields[0][jawatan]"
-                                        aria-label="Jawatan" required>
+                                    <select style="width: 100%" class="form-select mb-0 select2append"
+                                        name="addMoreInputFields[0][jawatan]" aria-label="Jawatan" required>
                                         <option value="">Jawatan</option>
                                         @foreach ($skim as $skims)
                                             <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>
@@ -190,8 +148,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select style="width: 100%" class="form-select mb-0 select2append" name="addMoreInputFields[0][gred]"
-                                        aria-label="Gred" required>
+                                    <select style="width: 100%" class="form-select mb-0 select2append"
+                                        name="addMoreInputFields[0][gred]" aria-label="Gred" required>
                                         <option value="">Gred</option>
                                         @foreach ($gred as $gredd)
                                             <option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>
@@ -199,52 +157,46 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input class="form-control" id="bilangan" name="addMoreInputFields[0][bilangan]" type="number" required>
+                                    <input class="form-control" id="bilangan" name="addMoreInputFields[0][bilangan]"
+                                        type="number" required>
                                 </td>
                                 <td>
-                                    <input class="form-control" id="penempatan" name="addMoreInputFields[0][penempatan]" type="text"
-                                        placeholder="Penempatan" required>
+                                    <input class="form-control" id="penempatan" name="addMoreInputFields[0][penempatan]"
+                                        type="text" placeholder="Penempatan" required>
                                 </td>
                                 <td>
                                     <button type="button" name="add" id="dynamic-ar"
                                         class="btn btn-outline-primary">Tambah</button>
                                 </td>
                             </tr>
-                          
+
                         </table>
                     </div>
-                    <div class="mt-3">
+                    <div class="mb-3 mt-3">
                         <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 @endsection
 @section('script')
-
     <script type="text/javascript">
-        $('.select2append').select2( { theme: "bootstrap-5" } );
+        $('.select2append').select2({
+            theme: "bootstrap-5"
+        });
 
         var i = 0;
         $("#dynamic-ar").click(function() {
              ++i;
-            
-            $("#dynamicAddRemove").append(
-                '<tr><td><select class="form-select mb-0 select2append" name="addMoreInputFields['
-                    + i +'][jawatan]"aria-label="Pilih Jawatan" required> <option value="">Jawatan</option> @foreach ($skim as $skims) <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td> <td> <select class="form-select mb-0 select2append" name="addMoreInputFields['
-                        + i +'][gred]" id="gred" aria-label="Gred select example" required><option value="">Gred</option>@foreach ($gred as $gredd)<option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>@endforeach</select></td><td><input class="form-control" id="bilangan" name="addMoreInputFields['
-                            + i +'][bilangan]" type="number" placeholder=" " required></td><td><input class="form-control" id="penempatan" name="addMoreInputFields['
-                            + i +'][penempatan]" type="text" placeholder="Penempatan" required></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
+            $("#dynamicAddRemove").append('<tr><td><select class="form-select mb-0 select2append" name="addMoreInputFields['+ i +'][jawatan]"aria-label="Pilih Jawatan" required> <option value="">Jawatan</option> @foreach ($skim as $skims) <option value="{{ $skims->id }}">{{ $skims->diskripsi }}</option>@endforeach</select></td> <td> <select class="form-select mb-0 select2append" name="addMoreInputFields['+ i +'][gred]" id="gred" aria-label="Gred select example" required><option value="">Gred</option>@foreach ($gred as $gredd)<option value="{{ $gredd->id }}">{{ $gredd->kod }}</option>@endforeach</select></td><td><input class="form-control" id="bilangan" name="addMoreInputFields['+ i +'][bilangan]" type="number" required></td><td><input class="form-control" id="penempatan" name="addMoreInputFields['+ i +'][penempatan]" type="text" placeholder="Penempatan" required></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>');
             $("#dynamicAddRemove .select2append").select2({ theme: "bootstrap-5" });
         });
+
         $(document).on('click', '.remove-input-field', function() {
             $(this).parents('tr').remove();
         });
-        
     </script>
-
     <script>
         // $(document).ready(function() {
         //     $('.select2-bs5').select2( {
@@ -253,5 +205,4 @@
         //      } );
         // });
     </script>
- 
 @endsection

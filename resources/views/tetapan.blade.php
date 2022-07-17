@@ -1,6 +1,16 @@
 @extends('layouts.app', ['page' => 'tetapan'])
 
 @section('content')
+    {{-- @if (Session::has('message'))
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <span class="fas fa-bullhorn me-1"></span>
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif --}}
+    @if(Session::has('message'))
+<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+@endif
     <div class="row mt-2">
         <div class="col-12 col-xl-8">
             <div class="card card-body border-0 shadow mb-4">
@@ -30,8 +40,8 @@
                             </div>
                         </div> --}}
                     </div>
-                    
-                    <div class="mt-3">
+
+                    <div class="mt-2 mb-2">
                         <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Simpan</button>
                     </div>
                 </form>
@@ -84,27 +94,51 @@
                     <div class="card shadow border-0 p-0">
                         <div class="card-body pb-5">
                             <h2 class="h5 mb-4">Kata Laluan</h2>
-                            <div class="row">
-                                <div class=" mb-3">
-                                    <label for="current_password">Kata Laluan Terini</label>
-                                    <input class="form-control" id="current_password" name="current_password" type="password" required>
+                            <form action="{{ url('tukar-katalaluan') }}" method="get">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="current_password">Kata Laluan Terkini</label>
+                                        <input
+                                            class="form-control {{ $errors->has('current_password') ? ' is-invalid' : '' }}"
+                                            id="current_password" name="current_password" type="password" required>
+                                        @if ($errors->has('current_password'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('current_password') }}
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class=" mb-3">
-                                    <label for="new_password">Kata laluan Baru</label>
-                                    <input class="form-control" id="new_password" name="new_password" type="password" required>
+                                <div class="row">
+                                    <div class=" mb-3">
+                                        <label for="new_password">Kata laluan Baru</label>
+                                        <input
+                                            class="form-control {{ $errors->has('new_password') ? ' is-invalid' : '' }}"
+                                            id="new_password" name="new_password" type="password" required>
+                                        @if ($errors->has('new_password'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('new_password') }}
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class=" mb-3">
-                                    <label for="confirm_new_password">Sahkan Kata laluan Baru</label>
-                                    <input class="form-control" id="confirm_new_password" name="confirm_new_password" type="password" required>
+                                <div class="row">
+                                    <div class=" mb-3">
+                                        <label for="confirm_new_password">Sahkan Kata laluan Baru</label>
+                                        <input
+                                            class="form-control {{ $errors->has('confirm_new_password') ? ' is-invalid' : '' }}"
+                                            id="confirm_new_password" name="confirm_new_password" type="password" required>
+                                        @if ($errors->has('confirm_new_password'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('confirm_new_password') }}
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Kemaskini</button>
-                            </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Kemaskini</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -140,4 +174,31 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        if (Session::has('message')) {
+            const notyf = new Notyf({
+                position: {
+                    x: 'right',
+                    y: 'top',
+                },
+                types: [{
+                    type: 'primary',
+                    background: 'green',
+                    icon: {
+                        className: 'fas fa-comment-dots',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: false
+                }]
+            });
+            notyf.open({
+                type: 'success',
+                message: 'Permohonan telah direkod'
+            });
+        }
+    </script>
 @endsection

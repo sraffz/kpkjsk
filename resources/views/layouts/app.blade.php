@@ -34,10 +34,10 @@
 
     <!-- Select2 BS5 -->
     <link rel="stylesheet" href="{{ asset('css/select2bs5/select2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.min.css') }}" /> 
+    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.min.css') }}" />
     <!-- Or for RTL support -->
-    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.rtl.min.css') }}" /> 
-
+    <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.rtl.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
     <style>
         .alignRight {
             float: right;
@@ -55,6 +55,64 @@
                 @include('layouts.navbar')
                 @yield('content')
                 {{-- @include('layouts.setting') --}}
+                @php
+                    $kp = Auth::user()->nokp;
+                    $pass = Auth::user()->password;
+                @endphp
+                @if (Hash::check($kp, $pass))
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tukar Kata Laluan</h5>
+
+                                </div>
+                                <form action="{{ url('tukar-password') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="form-group mb-2">
+                                                <label for="password">Kata Laluan Baru</label>
+                                                <input type="password"
+                                                    class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                                    name="password" id="password" aria-describedby="helpId"
+                                                    aria-invalid="true" required autofocus>
+                                                <small id="helpId" class="error invalid-feedback">
+                                                    {{ $errors->first('password') }}
+                                                </small>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="confirmpassword">Taip Semula Kata Laluan Baru</label>
+                                                <input type="password"
+                                                    class="form-control {{ $errors->has('confirmpassword') ? ' is-invalid' : '' }}"
+                                                    name="confirmpassword" id="confirmpassword" aria-invalid="true"
+                                                    aria-describedby="helpId" required>
+                                                <small id="helpId" class="error invalid-feedback">
+                                                    {{ $errors->first('confirmpassword') }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                            class="btn btn-secondary"> <i class="fas fa-sign-out-alt"></i> Log Keluar</a>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
+                                            Simpan</button>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @include('layouts.footer-auth')
             </main>
         @else
@@ -116,6 +174,8 @@
     <script src="{{ asset('js/select2bs5/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/select2bs5/select2.min.js') }}"></script>
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    
     <!-- SweetAlert -->
     {{-- <script src="{{ asset('sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('sweetalert/sweetalert2.min.js') }}"></script> --}}
@@ -123,15 +183,25 @@
     @yield('script')
 
     <script>
-         $(document).ready(function() {
-            $('.select2bs4').select2( {
-                theme: "bootstrap-5",
-                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-                
-             } );
+        $(document).ready(function() {
+            $('.datatables').DataTable();
         });
 
+        $(document).ready(function() {
+            $('.select2bs4').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+
+            });
+        });
     </script>
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+    {{-- @include('sweetalert::alert') --}}
 </body>
 
 </html>

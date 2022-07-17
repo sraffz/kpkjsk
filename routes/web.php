@@ -28,6 +28,9 @@ Route::get('/permohonan-butiran/{id}', 'HomeController@permohonanbutiran')->name
 Route::get('/permohonan-padam/{id}', 'HomeController@permohonanpadam')->name('permohonan.padam');
 Route::get('/laporan-tindakan', 'HomeController@laporanTindakan')->name('laporan.tindakan');
 Route::get('/laporan-permohonan', 'HomeController@laporanPermohonan')->name('laporan.permohonan');
+Route::get('/tukar-katalaluan', 'HomeController@tukarKatalaluan')->name('tukar-katalaluan');
+Route::post('/tukar-password', 'HomeController@tukarpassword')->name('tukar-password');
+Route::get('/padam-pengguna/{id}', 'HomeController@padamPengguna')->name('padam-pengguna');
 
 
 Route::POST('/simpan-permohonan-baru', 'HomeController@simpanPermohonanBaru')->name('simpan-permohonan-baru');

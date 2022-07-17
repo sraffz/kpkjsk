@@ -77,8 +77,7 @@
                                     data-bs-email="{{ $pengguna->email }}"
                                     data-bs-jawatan="{{ $pengguna->jawatan }}">Kemaskini</button>
 
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#padampengguna" data-bs-id="{{ $pengguna->id }}">Padam</button>
+                                <a role="button" href="{{ url('padam-pengguna', [$pengguna->id]) }}" class="first btn btn-outline-danger btn-sm" onclick="return confirm('Padam pengguna ini?')">Padam</a>
                             </div>
                         </td>
                     </tr>
@@ -144,7 +143,7 @@
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
 @endsection
 @section('script')
     <script>

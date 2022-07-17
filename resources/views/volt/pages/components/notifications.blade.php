@@ -209,6 +209,7 @@
             });
         });
 
+    
         document.getElementById('notifyBottomRight').addEventListener('click', function() {
             const notyf = new Notyf({
                 position: {

@@ -30,7 +30,7 @@ return [
         'array'   => 'The :attribute must have between :min and :max items.',
     ],
     'boolean'              => 'The :attribute field must be true or false.',
-    'confirmed'            => 'The :attribute confirmation does not match.',
+    'confirmed'            => ':attribute Pengesahan tidak sama.',
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
@@ -61,7 +61,7 @@ return [
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
+        'string'  => ':attribute sekurang-kurangnya :min aksara.',
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
@@ -75,7 +75,7 @@ return [
     'required_with_all'    => 'The :attribute field is required when :values is present.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
+    'same'                 => ':attribute dan :other tidak sepadan.',
     'size'                 => [
         'numeric' => 'The :attribute must be :size.',
         'file'    => 'The :attribute must be :size kilobytes.',
@@ -116,6 +116,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    // 'attributes' => [],
+
+    'attributes' => [
+        'new_password' => 'kata laluan',
+        'confirm_new_password' => 'pengesahan kata laluan',
+        'nokp' => 'No Kad Pengenalan',
+    ],
 
 ];

@@ -15,11 +15,11 @@
                             </svg>
                         </a>
                     </li>
-                     <li class="breadcrumb-item active" aria-current="page">Laporan Permohonan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Laporan Permohonan</li>
                 </ol>
             </nav>
             <h2 class="h4">Laporan Permohonan</h2>
-         </div>
+        </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{ route('permohonan.baru') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                 <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -30,39 +30,83 @@
                 Permohonan Baru
             </a>
             <div class="btn-group ms-2 ms-lg-3">
-                 <button type="button" class="btn btn-sm btn-outline-gray-600">Cetak</button>
+                <button type="button" class="btn btn-sm btn-outline-gray-600">Cetak</button>
             </div>
         </div>
     </div>
- 
+
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
-        <table class="table table-stripe table-bordered align-middle" style="width: 100%">
-            <thead>
-                <tr class="text-center ">
+        <table class="table table-stripe table-bordered align-middle datatables" style="width: 100%">
+            <thead class="thead-light">
+                <tr class="text-center align-middle">
                     <th class="border-gray-200">#</th>
+                    <th class="border-gray-200 ">Jabatan/Agensi</th>
                     <th class="border-gray-200">Jawatan</th>
-                    <th class="border-gray-200 ">Iklan</th>
-                     <th  class="border-gray-200">Ujian</th>
-                    <th class="border-gray-200">Ujian fizikal</th>
-                    <th class="border-gray-200">temuduga</th>
-                     <th class="border-gray-200">Jumlah</th>
+                    <th class="border-gray-200 ">Jumlah <br> Permohonan</th>
+                    <th class="border-gray-200 ">Jumlah <br> Diluluskan</th>
                 </tr>
             </thead>
             <tbody>
                 @php
                     $i = 1;
                 @endphp
-             
-             </tbody>
+                @foreach ($jawatan as $jawatans)
+                    <tr>
+                        <td> {{ $i++ }} </td>
+                        <td> {{ $jawatans->nama_jabatan }} <br>
+                            No. Ruj : {{ $jawatans->no_rujukan_surat }} <br> Tarikh Permohonan :
+                            {{ \Carbon\Carbon::parse($jawatans->tarikh_surat)->format('d-m-Y') }}<br>
+                            Tarikh Terima :
+                            {{ \Carbon\Carbon::parse($jawatans->tarikh_terima_surat)->format('d-m-Y') }}
+                        </td>
+                        <td class="flex-sm-wrap"> {{ $jawatans->nama_skim }} </td>
+                        {{-- <td> {{ $jawatans->gred }}</td> --}}
+                        <td class="text-center"> {{ $jawatans->bil_jawatan }} </td>
+                        <td class="text-center">
+                            {{-- {{ $jawatans->status_permohonan_jawatan }} --}}
+                            @if ($jawatans->status_permohonan_jawatan == 'LULUS')
+                                {{ $jawatans->bil_diluluskan }}
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                {{-- @foreach ($permohonan as $permohonans)
+                    @php $first = true; @endphp
+                    @php $sec = true; @endphp
+                    @foreach ($jawatan as $jawatans)
+                        @if ($permohonans->id == $jawatans->id)
+                            <tr>
+                                @if ($first == true)
+                                    <td rowspan="{{ $permohonans->bil_jawatan }}"> {{ $i++ }} </td>
+                                    <td rowspan="{{ $permohonans->bil_jawatan }}"> {{ $permohonans->nama_jabatan }} <br>
+                                        No. Ruj : {{ $permohonans->no_rujukan_surat }} <br> Tarikh Permohonan :
+                                        {{ \Carbon\Carbon::parse($permohonans->tarikh_surat)->format('d-m-Y') }}<br>
+                                        Tarikh Terima :
+                                        {{ \Carbon\Carbon::parse($permohonans->tarikh_terima_surat)->format('d-m-Y') }}
+                                    </td>
+                                    @php $first = false; @endphp
+                                @endif
+                                <td class="flex-sm-wrap"> {{ $jawatans->nama_skim }} </td>
+                <td class="text-center"> {{ $jawatans->bil_jawatan }} </td>
+                <td class="text-center">
+                    @if ($jawatans->status_permohonan_jawatan == 'LULUS')
+                        {{ $jawatans->bil_diluluskan }}
+                    @endif
+                </td>
+                </tr>
+                @endif
+                @endforeach
+                @endforeach  --}}
+            </tbody>
         </table>
     </div>
 @endsection
 @section('script')
     <script>
-        $( '#basic-usage' ).select2( {
+        $('#basic-usage').select2({
             theme: "bootstrap-5",
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: $( this ).data( 'placeholder' ),
-        } );
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+        });
     </script>
 @endsection

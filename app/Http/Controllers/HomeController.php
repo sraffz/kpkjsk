@@ -10,8 +10,11 @@ use App\JawatanDimohon;
 use App\Permohonan;
 use App\StatusTerkiniPermohonan;
 
+use App\Rules\MatchOldPassword;
 use Auth;
+use Session;
 use Hash;
+// use Alert;
 
 class HomeController extends Controller
 {
@@ -51,7 +54,41 @@ class HomeController extends Controller
 
     public function tetapan()
     {
+        
         return view('tetapan');
+    }
+    public function tukarKatalaluan(Request $req)
+    {
+        $req->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required', 'min:8'],
+            'confirm_new_password' => ['same:new_password'],
+        ]);
+
+        User::where('id', Auth::user()->id)->update([
+            'password' => Hash::make($req->new_password),
+        ]);
+
+        // dd('Password change successfully.');
+
+        return back();
+    }
+
+    public function tukarpassword(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'min:8'],
+            'confirmpassword' => ['same:password'],
+        ]);
+
+        User::where('id', Auth::user()->id)->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        // flash('Kata laluan telah ditukar.')->success();
+        // Alert::Success('Makluman', 'Kata laluan telah ditukar.');
+
+        return back();
     }
 
     public function pengguna()
@@ -239,7 +276,10 @@ class HomeController extends Controller
 
     public function laporanPermohonan()
     {
-        return view('laporan.permohonan');
+        $jawatan = DB::table('senarai_jawatan_dipohon')->get();
+        $permohonan = DB::table('senarai_permohonan_bil_jawatan')->get();
+
+        return view('laporan.permohonan', compact('jawatan', 'permohonan'));
     }
 
     public function kemaskiniMaklumatDiri(Request $req)
@@ -249,6 +289,13 @@ class HomeController extends Controller
             'name' => $req->nama,
             'email' => $req->email
         ]);
+
+        return back();
+    }
+
+    public function padamPengguna($id)
+    {
+        User::where('id', $id)->delete();
 
         return back();
     }
@@ -266,7 +313,9 @@ class HomeController extends Controller
             'nokp' => $req->nokp
         ]);
 
-        return back();
+        Session::flash('message', 'This is a message!'); 
+        Session::flash('alert-class', 'alert-danger'); 
+        return back()->with('message', 'message|Record updated.');
     }
 
     public function tambahPengguna(Request $req)

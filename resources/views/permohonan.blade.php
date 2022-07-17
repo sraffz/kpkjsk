@@ -34,6 +34,7 @@
             <div class="btn-group ms-2 ms-lg-3">
                 {{-- <button type="button" class="btn btn-sm btn-outline-gray-600">Kongsi</button> --}}
                 <button type="button" class="btn btn-sm btn-outline-gray-600">Cetak</button>
+                <button class="btn btn-gray-800" id="notifyBottomRight">Primary bottom right</button>
             </div>
         </div>
     </div>
@@ -82,15 +83,15 @@
             </div>
         </div> --}}
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
-        <table class="table table-stripe table-bordered align-middle" style="width: 100%">
+        <table class="table table-stripe table-bordered align-middle datatables" style="width: 100%">
             <thead class="thead-light">
                 <tr class="text-center align-middle">
-                    <th class="border-gray-200">#</th>
+                    <th class="border-gray-200">Bil</th>
                     <th class="border-gray-200">Jabatan</th>
                     <th class="border-gray-200 ">Jawatan Dipohon</th>
                     {{-- <th class="border-gray-200">Gred</th> --}}
-                    <th  class="border-gray-200">Bilangan <br> Permohonan</th>
-                    <th class="border-gray-200">Status </th>
+                    <th class="border-gray-200">Bilangan <br> Permohonan</th>
+                    <th class="border-gray-200">Status</th>
                     <th class="border-gray-200">Tindakan</th>
                 </tr>
             </thead>
@@ -180,6 +181,14 @@
             </nav>
             <div class="fw-normal small mt-4 mt-lg-0">Showing <b>5</b> out of <b>25</b> entries</div>
         </div> --}}
+
+         {{-- @if (Session::has('message'))
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <span class="fas fa-bullhorn me-1"></span>
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif --}}
     </div>
 @endsection
 @section('script')
@@ -189,5 +198,50 @@
             width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
             placeholder: $( this ).data( 'placeholder' ),
         } );
+
+        if (Session::has('message')) {
+            const notyf = new Notyf({
+                position: {
+                    x: 'right',
+                    y: 'top',
+                },
+                types: [{
+                    type: 'primary',
+                    background: 'green',
+                    icon: {
+                        className: 'fas fa-comment-dots',
+                        tagName: 'span',
+                        color: '#fff'
+                    },
+                    dismissible: false
+                }]
+            });
+            notyf.open({
+                type: 'success',
+                message: 'Permohonan telah direkod'
+            });
+        }
+        // $(window).on('load', function() {
+        //     const notyf = new Notyf({
+        //         position: {
+        //             x: 'right',
+        //             y: 'top',
+        //         },
+        //         types: [{
+        //             type: 'primary',
+        //             background: 'green',
+        //             icon: {
+        //                 className: 'fas fa-comment-dots',
+        //                 tagName: 'span',
+        //                 color: '#fff'
+        //             },
+        //             dismissible: false
+        //         }]
+        //     });
+        //     notyf.open({
+        //         type: 'success',
+        //         message: 'Permohonan telah direkod'
+        //     });
+        // });
     </script>
 @endsection

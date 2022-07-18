@@ -1,16 +1,6 @@
 @extends('layouts.app', ['page' => 'tetapan'])
 
 @section('content')
-    {{-- @if (Session::has('message'))
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <span class="fas fa-bullhorn me-1"></span>
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif --}}
-    @if(Session::has('message'))
-<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-@endif
     <div class="row mt-2">
         <div class="col-12 col-xl-8">
             <div class="card card-body border-0 shadow mb-4">
@@ -177,28 +167,5 @@
 @endsection
 
 @section('script')
-    <script>
-        if (Session::has('message')) {
-            const notyf = new Notyf({
-                position: {
-                    x: 'right',
-                    y: 'top',
-                },
-                types: [{
-                    type: 'primary',
-                    background: 'green',
-                    icon: {
-                        className: 'fas fa-comment-dots',
-                        tagName: 'span',
-                        color: '#fff'
-                    },
-                    dismissible: false
-                }]
-            });
-            notyf.open({
-                type: 'success',
-                message: 'Permohonan telah direkod'
-            });
-        }
-    </script>
+    
 @endsection

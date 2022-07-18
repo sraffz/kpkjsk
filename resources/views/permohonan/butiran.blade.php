@@ -97,7 +97,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dynamicAddRemove">
-                            <thead>
+                            <thead class="thead-light"> 
                                 <tr class="align-middle text-center">
                                     <th rowspan="2" style="width: 50%">Jawatan Dimohon</th>
                                     <th rowspan="2" style="width: 15%">Gred</th>
@@ -225,7 +225,7 @@
                                                                 </div>
                                                                 <div class="table-responsive ">
                                                                     <table class="table table-bordered mt-4">
-                                                                        <thead class="thead-default">
+                                                                        <thead class="thead-light">
                                                                             <tr>
                                                                                 <th>Tindakan</th>
                                                                                 <th>Tarikh</th>
@@ -319,7 +319,7 @@
                                                                 </div>
                                                                 <div class="table-responsive ">
                                                                     <table class="table table-bordered mt-4">
-                                                                        <thead class="thead-default">
+                                                                        <thead class="thead-light">
                                                                             <tr>
                                                                                 <th>Tindakan</th>
                                                                                 <th>Tarikh</th>

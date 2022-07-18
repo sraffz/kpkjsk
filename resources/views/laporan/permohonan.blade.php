@@ -30,7 +30,7 @@
                 Permohonan Baru
             </a>
             <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Cetak</button>
+                <a href="{{ url('cetak-laporan-permohonan') }}" role="button" class="btn btn-sm btn-outline-gray-600">Cetak</a>
             </div>
         </div>
     </div>

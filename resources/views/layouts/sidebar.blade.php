@@ -34,9 +34,9 @@
                         </svg>
                         Log Keluar
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="collapse-close d-md-none">
@@ -329,9 +329,9 @@
                     </span>
                     <span class="sidebar-text">Log Keluar</span>
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
-                </form>
+                </form> --}}
             </li>
         </ul>
     </div>

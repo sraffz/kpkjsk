@@ -14,6 +14,7 @@ use App\Rules\MatchOldPassword;
 use Auth;
 use Session;
 use Hash;
+use PDF;
 // use Alert;
 
 class HomeController extends Controller
@@ -70,6 +71,8 @@ class HomeController extends Controller
         ]);
 
         // dd('Password change successfully.');
+        Session::flash('message', 'Kata Laluan berjaya ditukar.'); 
+        Session::flash('alert-class', 'success'); 
 
         return back();
     }
@@ -87,6 +90,8 @@ class HomeController extends Controller
 
         // flash('Kata laluan telah ditukar.')->success();
         // Alert::Success('Makluman', 'Kata laluan telah ditukar.');
+        Session::flash('message', 'Kata Laluan berjaya ditukar.'); 
+        Session::flash('alert-class', 'success'); 
 
         return back();
     }
@@ -142,6 +147,9 @@ class HomeController extends Controller
             $data->save();
         }
 
+        Session::flash('message', 'Permohonan berjaya disimpan'); 
+        Session::flash('alert-class', 'success'); 
+
         return redirect('/permohonan');
     }
 
@@ -155,7 +163,7 @@ class HomeController extends Controller
         $jawatan = DB::table('senarai_jawatan_dipohon')
             ->where('id', $id)
             ->get();
-
+        
         return view('permohonan.kemaskini', compact('skim', 'gred', 'jabatan', 'permohonan', 'jawatan'));
     }
 
@@ -204,6 +212,9 @@ class HomeController extends Controller
             }
         }
 
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
+
         return back();
     }
 
@@ -239,6 +250,9 @@ class HomeController extends Controller
 
         Permohonan::where('id', $id)->delete();
 
+        Session::flash('message', 'Permohonan dipadam'); 
+        Session::flash('alert-class', 'error'); 
+
         return back();
     }
 
@@ -249,6 +263,9 @@ class HomeController extends Controller
             'tarikh_diluluskan' => $req->tarikh_lulus,
             'status_permohonan_jawatan' => $req->status
         ]);
+
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
 
         return back ();
     }
@@ -262,6 +279,9 @@ class HomeController extends Controller
         $data->tarikh = \Carbon\Carbon::parse($req->tarikh_tindakan)->format('Y-m-d');
         $data->catatan = $req->catatan_tindakan;
         $data->save();
+
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
 
         return back();
     }
@@ -290,12 +310,18 @@ class HomeController extends Controller
             'email' => $req->email
         ]);
 
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
+
         return back();
-    }
+      }
 
     public function padamPengguna($id)
     {
         User::where('id', $id)->delete();
+
+        Session::flash('message', 'Pengguna dipadam'); 
+        Session::flash('alert-class', 'error'); 
 
         return back();
     }
@@ -313,9 +339,11 @@ class HomeController extends Controller
             'nokp' => $req->nokp
         ]);
 
-        Session::flash('message', 'This is a message!'); 
-        Session::flash('alert-class', 'alert-danger'); 
-        return back()->with('message', 'message|Record updated.');
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
+
+        return back();
+        // return back()->with('message','Item created successfully!');
     }
 
     public function tambahPengguna(Request $req)
@@ -329,6 +357,30 @@ class HomeController extends Controller
         $user->password = Hash::make($req->nokp);
         $user->save();
 
+        Session::flash('message', 'Pengguna berjaya ditambah'); 
+        Session::flash('alert-class', 'success'); 
+
         return redirect('/pengguna');
+    }
+
+    public function cetakLaporanTindakan()
+    {
+        $laporan = DB::table('laporan_terkini_tindakan')->get();
+        $laporan_jumlah_jawatan = DB::table('jumlah_tindakan_skim')->get();
+
+        $pdf = PDF::loadView('laporan.cetak.tindakan', compact('laporan', 'laporan_jumlah_jawatan'))->setPaper('a4', 'landscape');
+        return $pdf->download('Laporan Tindakan Terkini Permohonan Jawatan.pdf');
+
+     
+    }
+    public function cetakLaporanpermohonan()
+    {
+        $jawatan = DB::table('senarai_jawatan_dipohon')->get();
+        $permohonan = DB::table('senarai_permohonan_bil_jawatan')->get();
+
+        $pdf = PDF::loadView('laporan.cetak.permohonan', compact('jawatan', 'permohonan'))->setPaper('a4', 'landscape');
+        return $pdf->download('Laporan Permohonan Keperluan Jawatan.pdf');
+
+        // return view('laporan.cetak.permohonan', compact('jawatan', 'permohonan'));
     }
 }

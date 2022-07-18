@@ -32,6 +32,9 @@ Route::get('/tukar-katalaluan', 'HomeController@tukarKatalaluan')->name('tukar-k
 Route::post('/tukar-password', 'HomeController@tukarpassword')->name('tukar-password');
 Route::get('/padam-pengguna/{id}', 'HomeController@padamPengguna')->name('padam-pengguna');
 
+Route::get('/cetak-laporan-tindakan', 'HomeController@cetakLaporanTindakan')->name('cetak-laporan-tindakan');
+Route::get('/cetak-laporan-permohonan', 'HomeController@cetakLaporanpermohonan')->name('cetak-laporan-permohonan');
+
 
 Route::POST('/simpan-permohonan-baru', 'HomeController@simpanPermohonanBaru')->name('simpan-permohonan-baru');
 Route::POST('/kemaskini-permohonan/{id}', 'HomeController@kemaskiniPermohonan')->name('kemaskini-permohonan');

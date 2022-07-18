@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.min.css') }}" />
     <!-- Or for RTL support -->
     <link rel="stylesheet" href="{{ asset('css/select2bs5/select2-bootstrap-5-theme.rtl.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/plugins/datatables-bs5/datatables.min.css') }}" />
     <style>
         .alignRight {
             float: right;
@@ -53,6 +53,20 @@
             @include('layouts.sidebar')
             <main class="content">
                 @include('layouts.navbar')
+                @if (Session::has('message'))
+                    @php
+                        $n = 1;
+                    @endphp
+                    {{-- <div class="alert {{ Session::get('alert-class') }} alert-dismissible fade show" role="alert">
+                        <span class="fas fa-bullhorn me-1"></span>
+                        {{ Session::get('message') }}
+                        <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> --}}
+                @else
+                    @php
+                        $n = 0;
+                    @endphp
+                @endif
                 @yield('content')
                 {{-- @include('layouts.setting') --}}
                 @php
@@ -174,8 +188,8 @@
     <script src="{{ asset('js/select2bs5/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/select2bs5/select2.min.js') }}"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-    
+    <script type="text/javascript" src="{{ asset('/plugins/datatables-bs5/datatables.min.js') }}"></script>
+
     <!-- SweetAlert -->
     {{-- <script src="{{ asset('sweetalert/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('sweetalert/sweetalert2.min.js') }}"></script> --}}
@@ -184,7 +198,23 @@
 
     <script>
         $(document).ready(function() {
-            $('.datatables').DataTable();
+            $('.datatables').DataTable({
+                "language": {
+                "emptyTable": "Tiada data",
+                "lengthMenu": "_MENU_ Rekod setiap halaman",
+                "zeroRecords": "Tiada padanan rekod yang dijumpai.",
+                "info": "Paparan dari _START_ hingga _END_ dari _TOTAL_ rekod",
+                "infoEmpty": "Paparan 0 hingga 0 dari 0 rekod",
+                "infoFiltered": "(Ditapis dari jumlah _MAX_ rekod)",
+                "search": "Carian:",
+                "oPaginate": {
+                    "sFirst": "Pertama",
+                    "sPrevious": "Sebelum",
+                    "sNext": "Seterusnya",
+                    "sLast": "Akhir"
+                }
+            },
+            });
         });
 
         $(document).ready(function() {
@@ -200,6 +230,33 @@
         $(window).on('load', function() {
             $('#myModal').modal('show');
         });
+    </script>
+
+    <!---- Notification ----->
+    <script>
+         var num = {{ $n }};
+        if (num == 1) {
+                 const notyf = new Notyf({
+                    position: {
+                        x: 'right',
+                        y: 'top',
+                    },
+                    types: [{
+                        type: 'primary',
+                        background: 'green',
+                        icon: {
+                            className: 'fas fa-comment-dots',
+                            tagName: 'span',
+                            color: '#fff'
+                        },
+                        dismissible: false
+                    }]
+                });
+                notyf.open({
+                    type: '{{ Session::get('alert-class') }}',
+                    message: '{{ Session::get('message') }}'
+                });
+         }
     </script>
     {{-- @include('sweetalert::alert') --}}
 </body>

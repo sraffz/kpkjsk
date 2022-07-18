@@ -33,7 +33,7 @@
             </a>
             <div class="btn-group ms-2 ms-lg-3">
                 {{-- <button type="button" class="btn btn-sm btn-outline-gray-600">Kongsi</button> --}}
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Cetak</button>
+                <a href="{{ url('cetak-laporan-tindakan') }}" role="button" class="btn btn-sm btn-outline-gray-600">Cetak</a>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
         <table class="table table-stripe table-bordered align-middle datatables" style="width: 100%">
             <thead class="thead-light">
-                <tr class="text-center ">
+                <tr class="text-center">
                     <th class="border-gray-200">#</th>
                     <th class="border-gray-200">Jawatan</th>
                     <th class="border-gray-200 ">Iklan</th>

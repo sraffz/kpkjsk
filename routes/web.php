@@ -43,6 +43,7 @@ Route::POST('/kemaskini-status-tindakan-jawatan', 'HomeController@kemaskiniStatu
 Route::POST('/kemaskini-maklumat-diri', 'HomeController@kemaskiniMaklumatDiri')->name('kemaskini-maklumat-diri');
 Route::POST('/kemaskini-pengguna', 'HomeController@kemaskiniPengguna')->name('kemaskini-pengguna');
 Route::POST('/tambah-pengguna', 'HomeController@tambahPengguna')->name('tambah-pengguna');
+Route::POST('/kemaskini-butiran-permohonan', 'HomeController@kemaskiniButiranPermohonan')->name('kemaskini-butiran-permohonan');
 
 
 

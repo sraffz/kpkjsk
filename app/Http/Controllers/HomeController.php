@@ -383,4 +383,38 @@ class HomeController extends Controller
 
         // return view('laporan.cetak.permohonan', compact('jawatan', 'permohonan'));
     }
+
+    public function kemaskiniButiranPermohonan(Request $req)
+    {  
+        JawatanDimohon::where('id', $req->id)->update([
+            'nama_jawatan' => $req->jawatan, 
+            'gred_jawatan' => $req->gred, 
+            'bil_jawatan' => $req->bil_permohonan, 
+            'penempatan' => $req->penempatan, 
+            'bil_diluluskan' => $req->bil_diluluskan, 
+        ]);
+        
+        $first = $req->id_status;
+
+        if (count($first)>0) {
+            foreach ($first as $item => $value) {
+
+                StatusTerkiniPermohonan::where('id', $req->id_status[$item])
+                ->update([
+                    'status_jawatan' =>$req->status_tindakan[$item],
+                    'tarikh' =>$req->tarikh_tindakan[$item],
+                ]);
+
+                // $data = new dynamic_field;
+                // $data->status_jawatan = $req->status_tindakan[$item];
+                // $data->tarikh = $req->tarikh_tindakan[$item];
+                // $data->save();
+            }
+        }
+
+        Session::flash('message', 'Maklumat dikemaskini'); 
+        Session::flash('alert-class', 'success'); 
+
+        return back();
+    }
 }

@@ -24,8 +24,7 @@
         <div class="col-12">
             <div class="card card-body border-0 shadow mb-4">
                 <h2 class="h5 mb-4">Butiran Permohonan</h2>
-                <form method="POST" action="{{ route('kemaskini-permohonan', [$permohonan->id]) }}" class="form-control">
-                    {{ csrf_field() }}
+                
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div>
@@ -257,8 +256,7 @@
                                             </div>
 
                                             <!-- Modal kemaskini Jawatan-->
-                                            <div class="modal fade"
-                                                id="kemaskinijawatan-{{ $jwtn->id_jawatan_dimohon }}" tabindex="-1"
+                                            <div class="modal fade" id="kemaskinijawatan-{{ $jwtn->id_jawatan_dimohon }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -267,97 +265,101 @@
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div class="container-fluid">
-                                                                <input type="hidden" name="id" value="{{ $jwtn->id_jawatan_dimohon }}">
-                                                                <div class="mb-2">
-                                                                    <label for="jawatan">Jawatan</label>
-                                                                    <select style="width: 100%"
-                                                                        class="form-select select2bs4" name="jawatan"
-                                                                        id="jawatan" required>
-                                                                        {{-- <option value="">Sila Pilih</option> --}}
-                                                                        @foreach ($skim as $skims)
-                                                                            <option value="{{ $skims->id }}" {{ $skims->id == $jwtn->id_skim  ? 'selected' : '' }}>{{ $skims->diskripsi }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="mb-2">
-                                                                    <label for="gred">Gred</label>
-                                                                    <select style="width: 100%"
-                                                                        class="form-select select2bs4" id="gred"
-                                                                        name="gred" id="gred" required>
-                                                                        {{-- <option value="">Sila Pilih</option> --}}
-                                                                        @foreach ($gred as $greds)
-                                                                            <option value="{{ $greds->kod }}" {{ $greds->kod ==  $jwtn->gred ? 'selected' : ''}}>{{ $greds->kod }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-xl-6">
-                                                                        <div class="mb-2">
-                                                                            <label for="bil_permohonan">Bil.
-                                                                                Dimohon</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="bil_permohonan"
-                                                                                value="{{ $jwtn->bil_jawatan }}">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-6">
-                                                                        <div class="mb-2">
-                                                                            <label for="bil_lulus">Bil. Diluluskan</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="bil_lulus"
-                                                                                value="{{ $jwtn->bil_diluluskan }}">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mb-2">
-                                                                    <label for="penempatan">Penempatan</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="penempatan"
-                                                                        value="{{ $jwtn->penempatan }}">
-                                                                </div>
-                                                                <div class="table-responsive ">
-                                                                    <table class="table table-bordered mt-4">
-                                                                        <thead class="thead-light">
-                                                                            <tr>
-                                                                                <th>Tindakan</th>
-                                                                                <th>Tarikh</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach ($tindakan_jawatan as $tj)
-                                                                                @if ($tj->id_jawatan_dipohon == $jwtn->id_jawatan_dimohon)
-                                                                                    <tr class="align-middle">
-                                                                                        <td scope="row">
-                                                                                            <select class="form-select"
-                                                                                                name="status_tindakan"
-                                                                                                id="status_tindakan"
-                                                                                                required>
-                                                                                                <option value="">SILA
-                                                                                                    PILIH</option>
-                                                                                                @foreach ($senarai_tindakan as $st)
-                                                                                                    <option value="{{ $st->id }}"
-                                                                                                        {{ $st->id == $tj->status_jawatan ? 'selected' : '' }}>
-                                                                                                        {{ $st->tindakan }}
-                                                                                                    </option>
-                                                                                                @endforeach
-                                                                                            </select>
-                                                                                        </td>
-                                                                                        <td>{{ \Carbon\carbon::parse($tj->tarikh)->format('d-m-Y') }}
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                @endif
+                                                        <form action="{{ url('kemaskini-butiran-permohonan') }}" method="post">
+                                                            {{ csrf_field() }}
+                                                            <div class="modal-body">
+                                                                <div class="container-fluid">
+                                                                    <input type="hidden" name="id" value="{{ $jwtn->id_jawatan_dimohon }}">
+                                                                    <div class="mb-2">
+                                                                        <label for="jawatan">Jawatan</label>
+                                                                        <select style="width: 100%"
+                                                                            class="form-select select2bs4" name="jawatan"
+                                                                            id="jawatan" required>
+                                                                            {{-- <option value="">Sila Pilih</option> --}}
+                                                                            @foreach ($skim as $skims)
+                                                                                <option value="{{ $skims->id }}" {{ $skims->id == $jwtn->id_skim  ? 'selected' : '' }}>{{ $skims->diskripsi }}</option>
                                                                             @endforeach
-                                                                        </tbody>
-                                                                    </table>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="gred">Gred</label>
+                                                                        <select style="width: 100%"
+                                                                            class="form-select select2bs4" id="gred"
+                                                                            name="gred" id="gred" required>
+                                                                            {{-- <option value="">Sila Pilih</option> --}}
+                                                                            @foreach ($gred as $greds)
+                                                                                <option value="{{ $greds->id }}" {{ $greds->id ==  $jwtn->gred_jawatan ? 'selected' : ''}}>{{ $greds->kod }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <div class="mb-2">
+                                                                                <label for="bil_permohonan">Bil.
+                                                                                    Dimohon</label>
+                                                                                <input type="number" class="form-control"
+                                                                                    id="bil_permohonan" name="bil_permohonan"
+                                                                                    value="{{ $jwtn->bil_jawatan }}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <div class="mb-2">
+                                                                                <label for="bil_lulus">Bil. Diluluskan</label>
+                                                                                <input type="number" class="form-control"
+                                                                                    id="bil_lulus" name="bil_diluluskan"
+                                                                                    value="{{ $jwtn->bil_diluluskan }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        <label for="penempatan">Penempatan</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="penempatan" name="penempatan"
+                                                                            value="{{ $jwtn->penempatan }}">
+                                                                    </div>
+                                                                    <div class="table-responsive ">
+                                                                        <table class="table table-bordered mt-4">
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th>Tindakan</th>
+                                                                                    <th>Tarikh</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach ($tindakan_jawatan as $tj)
+                                                                                    @if ($tj->id_jawatan_dipohon == $jwtn->id_jawatan_dimohon)
+                                                                                        <tr class="align-middle">
+                                                                                            <td scope="row">
+                                                                                                <input type="hidden" name="id_status[]" value="{{ $tj->id }}">
+                                                                                                <select class="form-select" name="status_tindakan[]" id="status_tindakan" required>
+                                                                                                    <option value="">SILA
+                                                                                                        PILIH</option>
+                                                                                                    @foreach ($senarai_tindakan as $st)
+                                                                                                        <option value="{{ $st->id }}"
+                                                                                                            {{ $st->id == $tj->status_jawatan ? 'selected' : '' }}>
+                                                                                                            {{ $st->tindakan }}
+                                                                                                        </option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input type="date" name="tarikh_tindakan[]" class="form-control" value="{{ $tj->tarikh }}">
+                                                                                                {{-- {{ \Carbon\carbon::parse($tj->tarikh)->format('d-m-Y') }} --}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Tutup</button>
-                                                        </div>
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -380,7 +382,7 @@
                             @endforeach
                         </table>
                     </div>
-                </form>
+                
                 <div class="mt-3 text-end">
                     {{-- <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Simpan</button> --}}
                 </div>
@@ -476,22 +478,7 @@
     </div>
 @endsection
 @section('script')
-    {{-- $(".modal-body #jawatan").val(jawatan).select2({theme: "bootstrap-5",dropdownParent: $(".modal-body"),} ); --}}
-    <script>
-        var kemaskinijawatan = document.getElementById('kemaskinijawatan');
-
-        kemaskinijawatan.addEventListener('show.bs.modal', function(event) {
-            // Button that triggered the modal
-            let button = event.relatedTarget;
-            // var id = button.data('id');
-            // Extract info from data-bs-* attributes
-            let recipient = button.getAttribute('data-bs-whatever');
-            let id = button.getAttribute('data-bs-id');
-
-            // Use above variables to manipulate the DOM
-            $(".modal-body #id").val(id);
-        });
-    </script>
+ 
     <script>
         var statusJawatan = document.getElementById('statusJawatan');
 

@@ -138,7 +138,7 @@
     <script src="{{ asset('volt/vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
 
     <!-- Slider -->
-    <script src="{{ asset('volt/vendor/nouislider/distribute/nouislider.min.js') }}"></script>
+    {{-- <script src="{{ asset('volt/vendor/nouislider/distribute/nouislider.min.js') }}"></script> --}}
 
     <!-- Smooth scroll -->
     <script src="{{ asset('volt/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>

@@ -274,7 +274,7 @@
                                                                         <label for="jawatan">Jawatan</label>
                                                                         <select style="width: 100%"
                                                                             class="form-select select2bs4" name="jawatan"
-                                                                            id="jawatan" required>
+                                                                            id="" required>
                                                                             {{-- <option value="">Sila Pilih</option> --}}
                                                                             @foreach ($skim as $skims)
                                                                                 <option value="{{ $skims->id }}" {{ $skims->id == $jwtn->id_skim  ? 'selected' : '' }}>{{ $skims->diskripsi }}</option>
@@ -283,9 +283,7 @@
                                                                     </div>
                                                                     <div class="mb-2">
                                                                         <label for="gred">Gred</label>
-                                                                        <select style="width: 100%"
-                                                                            class="form-select select2bs4" id="gred"
-                                                                            name="gred" id="gred" required>
+                                                                        <select style="width: 100%" class="form-select select2bs4" id="" name="gred" required>
                                                                             {{-- <option value="">Sila Pilih</option> --}}
                                                                             @foreach ($gred as $greds)
                                                                                 <option value="{{ $greds->id }}" {{ $greds->id ==  $jwtn->gred_jawatan ? 'selected' : ''}}>{{ $greds->kod }}</option>
@@ -331,7 +329,7 @@
                                                                                         <tr class="align-middle">
                                                                                             <td scope="row">
                                                                                                 <input type="hidden" name="id_status[]" value="{{ $tj->id }}">
-                                                                                                <select class="form-select" name="status_tindakan[]" id="status_tindakan" required>
+                                                                                                <select class="form-select select2bs4" name="status_tindakan[]" id="" required>
                                                                                                     <option value="">SILA
                                                                                                         PILIH</option>
                                                                                                     @foreach ($senarai_tindakan as $st)

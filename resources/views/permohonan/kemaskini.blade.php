@@ -96,7 +96,7 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="addMoreInputFields[{{ $k }}][id_jawatan]" value="{{ $jwtn->id_jawatan_dimohon }}">
-                                        <select style="width: 100%" class="form-select mb-0 select2bs55" id="jawatan" name="addMoreInputFields[{{ $k }}][jawatan]"
+                                        <select style="width: 100%" class="form-select mb-0 select2bs55" id="" name="addMoreInputFields[{{ $k }}][jawatan]"
                                             aria-label="Jawatan" required>
                                             <option value="">Jawatan</option>
                                             @foreach ($skim as $skims)
@@ -105,7 +105,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select style="width: 100%" class="form-select mb-0 select2bs55" name="addMoreInputFields[{{ $k }}][gred]" id="gred"
+                                        <select style="width: 100%" class="form-select mb-0 select2bs55" name="addMoreInputFields[{{ $k }}][gred]" id=""
                                             aria-label="Gred" required>
                                             <option value="">Gred</option>
                                             @foreach ($gred as $gredd)

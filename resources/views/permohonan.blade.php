@@ -65,6 +65,7 @@
                                     <td rowspan="{{ $permohonans->bil_jawatan }}"> {{ $permohonans->nama_jabatan }} <br> {{ $permohonans->no_rujukan_surat }}</td>
                                     @php $first = false; @endphp
                                 @endif
+
                                 <td class="flex-sm-wrap"> {{ $jawatans->nama_skim }} </td>
                                 {{-- <td> {{ $jawatans->gred }}</td> --}}
                                 <td class="text-center"> {{ $jawatans->bil_jawatan }} </td>
@@ -73,6 +74,7 @@
                                     ({{ $jawatans->bil_diluluskan }})
                                     @endif 
                                 </td>
+
                                 @if ($sec == true)
                                     <td rowspan="{{ $permohonans->bil_jawatan }}" style="vertical-align: middle" class="text-center">
                                         <div class="btn-group">
@@ -99,6 +101,7 @@
                                     </td>
                                 @php $sec = false; @endphp
                                 @endif
+                                
                             </tr>
                         @endif
                     @endforeach
